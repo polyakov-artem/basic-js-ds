@@ -18,9 +18,8 @@ class BinarySearchTree {
     // remove line with error and write your code here
   }
 
-  has(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  has(data) {
+    return Boolean(this.find(data));
   }
 
   getNodeLocation(data) {
@@ -59,14 +58,26 @@ class BinarySearchTree {
     // remove line with error and write your code here
   }
 
+  lastNode({ position, startNode = this.#root }) {
+    if (startNode === null) return null;
+
+    let node = startNode;
+
+    while (node[position]) {
+      node = node[position];
+    }
+
+    return node;
+  }
+
   min() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    const lastNode = this.lastNode({ position: "left" });
+    return lastNode?.data || null;
   }
 
   max() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    const lastNode = this.lastNode({ position: "right" });
+    return lastNode?.data || null;
   }
 }
 
