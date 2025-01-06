@@ -66,9 +66,35 @@ class BinarySearchTree {
     return nodeLocation.foundNode;
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  remove(data) {
+    const nodeLocation = this.getNodeLocation(data);
+
+    if (nodeLocation === null || nodeLocation.foundNode === null) return null;
+
+    const { parentNode, foundNode, position } = nodeLocation;
+
+    const leftBranch = foundNode.left;
+    const rightBranch = foundNode.right;
+
+    const leftBranchMaxNode = this.lastNode({
+      startNode: leftBranch,
+      position: "right",
+    });
+
+    let replacement;
+
+    if (leftBranchMaxNode !== null) {
+      leftBranchMaxNode.right = rightBranch;
+      replacement = leftBranch;
+    } else {
+      replacement = rightBranch;
+    }
+
+    if (parentNode === foundNode) {
+      this.#root = replacement;
+    } else {
+      parentNode[position] = replacement;
+    }
   }
 
   lastNode({ position, startNode = this.#root }) {
